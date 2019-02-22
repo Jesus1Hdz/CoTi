@@ -1,6 +1,6 @@
 //Iniciar servidor
 
-#IMportar
+//IMportar
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
@@ -27,7 +27,40 @@ app.get('/webhook', function(req, res){
 	if (req.query['hub.verify_token'] === 'token_secret_jesus') {
 		res.send(req.query['hub.challenge']);
 	} else {
-		res.send('Tu no debes de entrat aquí >:)');
+		res.send('Tu no debes de entrat aquí');
 	}
 
 });
+
+
+//Vlidar eventos
+app.post('/webhook', function(req, res){
+
+	var data = req.body;
+	if (data.object == 'page'){
+
+		data.entry.forEach(function(pageEntry){
+			pageEntry.messaging.forEach(function(messagingEvent){
+				console.log("Entro");
+
+				//Evento de tipo mensage? Yes ->
+				if (messagingEvent.message){
+				receiveMessage(messagingEvent);
+				}
+			});
+		});
+		res.sendStatus(200);
+	}
+});
+
+
+//Obtener datos del mensaje
+function receiveMessage(event){
+	var senderID = event.sender.id;
+	var messageText = event.message.text;
+
+	console.log(senderID);
+	console.log(messageText);
+}
+
+
