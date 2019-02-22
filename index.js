@@ -63,4 +63,12 @@ function receiveMessage(event){
 	console.log(messageText);
 }
 
+//Responder
+
+function evaluateMessage(message){
+	si el mensaje pide ayuda, entonces la envio
+}
+
+
+
 
