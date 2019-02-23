@@ -76,8 +76,6 @@ function evaluateMessage(recipientId, message){
 		//Mensaje
 	}else if(isContain(message, 'logo')){
 		sendMessageImage(recipientId);
-	}else if () {
-
 	}else{
 		finalMessage = 'HOLA, me llamo COBOT, soy un un Robot automatizado para responderte y ayudate, aún estoy en desarrollo y por el momento solo repito lo que me envias : "' + message + '"';
 	}
