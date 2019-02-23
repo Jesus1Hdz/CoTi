@@ -41,7 +41,7 @@ app.post('/webhook', function(req, res){
 
 		data.entry.forEach(function(pageEntry){
 			pageEntry.messaging.forEach(function(messagingEvent){
-				console.log("Entro");
+				//console.log("Entro");
 
 				//Evento de tipo mensage? Yes ->
 				if (messagingEvent.message){
@@ -59,14 +59,64 @@ function receiveMessage(event){
 	var senderID = event.sender.id;
 	var messageText = event.message.text;
 
+	//Imprimir ID y Mensaje en la terminal
 	console.log(senderID);
 	console.log(messageText);
+
+	evaluateMessage(senderID, messageText);
 }
 
 //Responder
 
-function evaluateMessage(message){
-	si el mensaje pide ayuda, entonces la envio
+function evaluateMessage(recipientId, message){
+	var finalMessage = '';
+	//si el mensaje pide ayuda, entonces la enviamos
+	if (isContain(message, 'ayuda')) {
+		finalMessage = 'Por el momento no puedo ayudarte :3';
+	}else{
+		finalMessage = 'HOLA, me llamo COBOT, soy un un Robot automatizado para responderte y ayudate, aún estoy es desarrollo y por el momento solo repito lo que me envias : ' + message;
+	}
+
+	sendMessageText(recipientId, finalMessage);
+}
+
+//Enviar al usuario
+function sendMessageText(recipientId, message){
+	//Estructura del mensaje FB
+	var messageData = {
+		//Id del destinatario
+		recipient : {
+			id : recipientId
+		},
+		//texto
+		message: {
+			text: message
+		}
+	};
+	callSendAPI(messageData);
+}
+
+
+//Peticion FB con token
+function callSendAPI(messageData){
+
+	request({
+		uri: 'https://graph.facebook.com/v2.6/me/messages',
+		qs : { access_token : APP_TOKEN},
+		method: 'POST',
+		json: messageData
+	}, function(error, response, data){
+		if (error) {
+			console.log('No es posible enviar el mensaje');
+		}else{
+			console.log('El mensaje fue enviado');
+		}
+	});
+
+}
+
+function isContain(sentence, word){
+	return sentence.indexOf(word) > -1;
 }
 
 
