@@ -71,16 +71,21 @@ function receiveMessage(event){
 function evaluateMessage(recipientId, message){
 	var finalMessage = '';
 	//si el mensaje pide ayuda, entonces la enviamos
-	if (isContain(message, 'ayuda')) {
+	if(isContain(message, 'ayuda')) {
 		finalMessage = 'Por el momento no puedo ayudarte :3';
+		//Mensaje
+	}else if(isContain(message, 'logo')){
+		sendMessageImage(recipientId);
+	}else if () {
+
 	}else{
-		finalMessage = 'HOLA, me llamo COBOT, soy un un Robot automatizado para responderte y ayudate, aún estoy es desarrollo y por el momento solo repito lo que me envias : ' + message;
+		finalMessage = 'HOLA, me llamo COBOT, soy un un Robot automatizado para responderte y ayudate, aún estoy en desarrollo y por el momento solo repito lo que me envias : "' + message + '"';
 	}
 
 	sendMessageText(recipientId, finalMessage);
 }
 
-//Enviar al usuario
+//Enviar al usuario texto
 function sendMessageText(recipientId, message){
 	//Estructura del mensaje FB
 	var messageData = {
@@ -96,6 +101,47 @@ function sendMessageText(recipientId, message){
 	callSendAPI(messageData);
 }
 
+//Enviar al usuario imagen
+function sendMessageImage(recipientId){
+	//Estructura del mensaje FB
+	//API imgur, buscar por categorias
+	var messageData = {
+		//Id del destinatario
+		recipient : {
+			id : recipientId
+		},
+		//texto
+		message: {
+			attachment: {
+				type: "image",
+				payload: {
+					url: "https://pbs.twimg.com/profile_images/1063452253166559232/yOKv8ug2_400x400.jpg"
+				}
+			}
+		}
+	};
+	callSendAPI(messageData);
+}
+
+//function sendMessageImage(recipientId){
+	//API imgur
+//	var messageData = {
+		//Id del destinatario
+//		recipient : {
+//			id : recipientId
+//		},
+		//texto
+//		message: {
+//			attachment:{
+//				type: "image",
+//				payload: {
+//					url: "https://pbs.twimg.com/profile_images/1063452253166559232/yOKv8ug2_400x400.jpg"
+//				}
+//			}
+//		}
+//	};
+//	callSendAPI(messageData);
+//}
 
 //Peticion FB con token
 function callSendAPI(messageData){
