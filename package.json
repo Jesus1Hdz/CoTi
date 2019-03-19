@@ -1,0 +1,31 @@
+{
+  "name": "CoTi",
+  "version": "1.0.0",
+  "description": "ChatBot implementado en la plataforma Messenger",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "scripts": {
+    "start": "node src",
+    "coti": "nodemon src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jesus1Hdz/CoTi.git"
+  },
+  "keywords": [],
+  "author": "Jesús Hernández",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jesus1Hdz/CoTi/issues"
+  },
+  "homepage": "https://github.com/Jesus1Hdz/CoTi#readme"
+}

@@ -1,24 +1,30 @@
-//Iniciar servidor
-
-//IMportar
-var express = require('express');
+//Importar
+const express = require('express');
+const app = express();
 var bodyParser = require('body-parser');
 var request = require('request');
+const path = require('path');
 
 const APP_TOKEN = 'EAAH8FvLlHLoBAFeTACIbDeMkQDZAI9IJujejeLoKj6kpLmdKVUZBTdwZCZBrOO8mqZCKQBzDQYZCrZCICJmb4XCUr8JLLafuhwkn2cuWNwpblzIQuIgWwjPdYgOcU0HZCNV1DOSXK5VcZCpI6VPvBQZAUPvZBp5jlqZC5NSZABWzLlrbb3wZDZD';
 
 //Usar bodyParser.json
-var app = express();
 app.use(bodyParser.json());
 
 //Puerto del servidor
-app.listen(2912, function(){
-	console.log("El servidor se encuentra en el pueto 2912");
-});
+app.set('port', 2912);
+app.set('views', path.join(__dirname, 'views'));
+
+app.set('view engine', 'ejs');
 
 //Config ruta
-app.get('/', function(req, res){
-	res.send('Bienvenido');
+app.use(require('./routes/index'));
+
+// Archivos publicos
+app.use(express.static(path.join(__dirname, 'public')));
+
+//POrt especific
+app.listen(app.get('port'), () => {
+    console.log('Server runing in the port ', app.get('port'));
 });
 
 //Conexion con FB, validacion token
@@ -33,24 +39,27 @@ app.get('/webhook', function(req, res){
 });
 
 
-//Vlidar eventos
+//Validar eventos
 app.post('/webhook', function(req, res){
 
-	var data = req.body;
-	if (data.object == 'page'){
+    var data = req.body;
+    if (data.object == 'page'){
 
-		data.entry.forEach(function(pageEntry){
-			pageEntry.messaging.forEach(function(messagingEvent){
-				//console.log("Entro");
+        data.entry.forEach(function(pageEntry){
+            pageEntry.messaging.forEach(function(messagingEvent){
+                console.log("  ");
+                console.log("  ");
+                console.log("######################");
+                console.log("--------STATUS--------");
 
-				//Evento de tipo mensage? Yes ->
-				if (messagingEvent.message){
-				receiveMessage(messagingEvent);
-				}
-			});
-		});
-		res.sendStatus(200);
-	}
+                //Evento de tipo mensage? Yes ->
+                if (messagingEvent.message){
+                    receiveMessage(messagingEvent);
+                }
+            });
+        });
+        res.sendStatus(200);
+    }
 });
 
 
@@ -77,7 +86,7 @@ function evaluateMessage(recipientId, message){
 	}else if(isContain(message, 'logo')){
 		sendMessageImage(recipientId);
 	}else{
-		finalMessage = 'HOLA, me llamo COBOT, soy un un Robot automatizado para responderte y ayudate, aún estoy en desarrollo y por el momento solo repito lo que me envias : "' + message + '"';
+		finalMessage = 'HOLA, me llamo COTI, soy un un Robot automatizado para responderte y ayudate, aún estoy en desarrollo y por el momento solo repito lo que me envias : "' + message + '"';
 	}
 
 	sendMessageText(recipientId, finalMessage);
@@ -162,7 +171,4 @@ function callSendAPI(messageData){
 function isContain(sentence, word){
 	return sentence.indexOf(word) > -1;
 }
-
-
-
 
