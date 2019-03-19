@@ -93,6 +93,10 @@ function evaluateMessage(recipientId, message){
         finalMessage = 'Mi nombre es CoTi, ¿y el tuyo?';
     }else  if(isContain(message, 'hicieron')){
         finalMessage = 'Me desarrollaron los chicos de TICS, ¿Te gustaria unirte a TICS?';
+    }else if(isContain(message, 'eres')){
+        finalMessage = 'Soy un ChatBot automatizado para responderte por messenger, aún estoy en fase "beta"';
+    }else if(isContain(message, 'beta')){
+        finalMessage = 'Es cuando una aplicación aún está en desarrollo, en esta fase aún pude haber errores, es la fase de prueba...';
     }
     else{
 		finalMessage = 'HOLA, me llamo COTI, soy un un Robot automatizado para responderte y ayudate, aún estoy en desarrollo y por el momento solo repito lo que me envias : "' + message + '"';
