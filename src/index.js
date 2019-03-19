@@ -85,7 +85,16 @@ function evaluateMessage(recipientId, message){
 		//Mensaje
 	}else if(isContain(message, 'logo')){
 		sendMessageImage(recipientId);
-	}else{
+	}else if(isContain(message, 'si')){
+	    finalMessage = '¿En que puedo ayudarte?';
+    }else if(isContain(message, 'gracias')){
+	    finalMessage = 'De nada... :)';
+    }else if(isContain(message, 'nombre')){
+        finalMessage = 'Mi nombre es CoTi, ¿y el tuyo?';
+    }else  if(isContain(message, 'hicieron')){
+        finalMessage = 'Me desarrollaron los chicos de TICS, ¿Te gustaria unirte a TICS?';
+    }
+    else{
 		finalMessage = 'HOLA, me llamo COTI, soy un un Robot automatizado para responderte y ayudate, aún estoy en desarrollo y por el momento solo repito lo que me envias : "' + message + '"';
 	}
 
@@ -106,6 +115,22 @@ function sendMessageText(recipientId, message){
 		}
 	};
 	callSendAPI(messageData);
+}
+
+//Rsponder si
+function sendMessageSi(recipientId, message){
+    //Estructura del mensaje FB
+    var messageData = {
+        //Id del destinatario
+        recipient : {
+            id : recipientId
+        },
+        //texto
+        message: {
+            text: message
+        }
+    };
+    callSendAPI(messageData);
 }
 
 //Enviar al usuario imagen
@@ -163,6 +188,9 @@ function callSendAPI(messageData){
 			console.log('No es posible enviar el mensaje');
 		}else{
 			console.log('El mensaje fue enviado');
+            console.log('El mensaje fue enviado');
+            console.log("----------------------");
+            console.log("######################");
 		}
 	});
 
