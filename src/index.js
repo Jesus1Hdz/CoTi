@@ -95,16 +95,34 @@ function evaluateMessage(recipientId, message){
         finalMessage = 'Me desarrollaron los chicos de TICS, ¿Te gustaria unirte a TICS?';
     }else if(isContain(message, 'eres')){
         finalMessage = 'Soy un ChatBot automatizado para responderte por messenger, aún estoy en fase "beta"';
-    }else if(isContain(message, 'beta')){
+    }else if(isContain(message, 'futuro')){
+		finalMessage = 'Un buen profesionista';
+	}else if(isContain(message, 'carretera')){
+		finalMessage = 'Ya casi... :)';
+	}else if(isContain(message, 'campamento')){
+		finalMessage = 'Yessssss!!! :)';
+	}
+	else if(isContain(message, 'regresar')){
+		finalMessage = 'No, estás muy narizon';
+	}
+	else if(isContain(message, 'chikitiar')){
+		finalMessage = 'chikiteame la gorra';
+	}else if(isContain(message, 'memes')) {
+		finalMessage = 'Mmmmcy 7u7';
+	}
+	else if(isContain(message, 'ama')){
+		finalMessage = 'Siii!!! ell@ te ama <3';
+	}
+	else if(isContain(message, 'beta')){
         finalMessage = 'Es cuando una aplicación aún está en desarrollo, en esta fase aún pude haber errores, es la fase de prueba...';
     }
     else{
-		finalMessage = 'HOLA, me llamo COTI, soy un un Robot automatizado para responderte y ayudate, aún estoy en desarrollo y por el momento solo repito lo que me envias : "' + message + '"';
+		finalMessage = 'HOLA, me llamo COTI, soy az un un Robot automatizado para responderte y ayudate, aún estoy en desarrollo y por el momento solo repito lo que me envias : "' + message + '"';
 	}
 
 	sendMessageText(recipientId, finalMessage);
 }
-
+// Agregar formato V de Gowin :3
 //Enviar al usuario texto
 function sendMessageText(recipientId, message){
 	//Estructura del mensaje FB
