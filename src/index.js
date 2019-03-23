@@ -4,6 +4,8 @@ const app = express();
 var bodyParser = require('body-parser');
 var request = require('request');
 const path = require('path');
+const chalk = require('chalk');
+
 
 const APP_TOKEN = 'EAAH8FvLlHLoBAFeTACIbDeMkQDZAI9IJujejeLoKj6kpLmdKVUZBTdwZCZBrOO8mqZCKQBzDQYZCrZCICJmb4XCUr8JLLafuhwkn2cuWNwpblzIQuIgWwjPdYgOcU0HZCNV1DOSXK5VcZCpI6VPvBQZAUPvZBp5jlqZC5NSZABWzLlrbb3wZDZD';
 
@@ -24,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //POrt especific
 app.listen(app.get('port'), () => {
-    console.log('Server runing in the port ', app.get('port'));
+	console.log(chalk.magenta('Server runing in the port ', app.get('port')));
 });
 
 //Conexion con FB, validacion token
@@ -47,10 +49,8 @@ app.post('/webhook', function(req, res){
 
         data.entry.forEach(function(pageEntry){
             pageEntry.messaging.forEach(function(messagingEvent){
-                console.log("  ");
-                console.log("  ");
-                console.log("######################");
-                console.log("--------STATUS--------");
+                console.log(chalk.cyan("\n\n####################################################"));
+				console.log(chalk.cyan("-----------------------") + chalk.green('STATUS') + chalk.cyan('-----------------------'));
 
                 //Evento de tipo mensage? Yes ->
                 if (messagingEvent.message){
@@ -69,8 +69,8 @@ function receiveMessage(event){
 	var messageText = event.message.text;
 
 	//Imprimir ID y Mensaje en la terminal
-	console.log(senderID);
-	console.log(messageText);
+	console.log(chalk.yellow('USER-ID :   ' + senderID));
+	console.log(chalk.bold('SMS-TEXT:   ' + messageText));
 
 	evaluateMessage(senderID, messageText);
 }
@@ -207,12 +207,14 @@ function callSendAPI(messageData){
 		json: messageData
 	}, function(error, response, data){
 		if (error) {
-			console.log('No es posible enviar el mensaje');
+			console.log(chalk.red('\n\nNo es posible enviar el mensaje'));
+			console.log(chalk.cyan("####################################################"));
 		}else{
-			console.log('El mensaje fue enviado');
-            console.log('El mensaje fue enviado');
-            console.log("----------------------");
-            console.log("######################");
+			console.log(chalk.cyan('---------------') + chalk.green('El mensaje fue enviado') + chalk.cyan('---------------'));
+			//console.log("--------------------------------");
+			console.log(chalk.cyan("####################################################"));
+			console.log(chalk.magenta('\n\nServer runing in the port ', app.get('port')));
+			//console.log(chalk.blue('HolaMundo!'));
 		}
 	});
 
