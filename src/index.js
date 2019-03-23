@@ -79,14 +79,41 @@ function receiveMessage(event){
 
 function evaluateMessage(recipientId, message){
 	var finalMessage = '';
-	//si el mensaje pide ayuda, entonces la enviamos
-	if(isContain(message, 'ayuda')) {
-		finalMessage = 'Por el momento no puedo ayudarte :3';
-		//Mensaje
-	}else if(isContain(message, 'logo')){
+	//AYUDA
+	if(isContain(message, 'Ayuda')) {
+		finalMessage = '¿En que puedo ayudarte? :3';
+	}else if(isContain(message, 'ayuda')){
+		finalMessage = '¿Que necesitas? :3';
+	} else if (isContain(message, 'Help')) {
+		finalMessage = 'Dime, en que puedo ayudarte?\nOye...\nYo aún no hablo inglés, :(\nTe agradecería mucho si solo me escribes en español :)';
+	} else if(isContain(message, 'help')){
+		finalMessage = '¿En que te ayudo?';
+	}
+	//LOGO
+	else if(isContain(message, 'logo')){
 		sendMessageImage(recipientId);
-	}else if(isContain(message, 'si')){
-	    finalMessage = '¿En que puedo ayudarte?';
+	//}else if(isContain(message, 'si')){
+	   // finalMessage = '¿En que puedo ayudarte?';
+    }
+	// SALUDOS - HOLA
+	else if(isContain(message, 'Hola')){
+		finalMessage = 'Holaaaaa!!!' + '\n¿Puedo ayudarte en algo :3?';
+	}else if(isContain(message, 'HOLA')){
+		finalMessage = 'HOLA!! :3'
+	}else if(isContain(message, 'hola')){
+		finalMessage = 'Hola! :3  oye, ¿puedo ayudarte en algo?';
+	}else if(isContain(message, 'Holi')){
+		finalMessage = 'Holiwis kiwis! :3' + '\nOye...' + '\nPuedo ayudarte en algo';
+	}else if(isContain(message, 'holi')){
+		finalMessage = 'Holis ^-^';
+	}
+	// SALUDOS - DESPEDIDA
+		else if(isContain(message, 'ADIOS')){
+			finalMessage = 'Adios! ^-^\nCuidate...';
+	}else if(isContain(message, 'Adios')){
+			finalMessage = 'Hasta pronto... :)\nCuidate';
+	}else if(isContain(message, 'adios')){
+					finalMessage = 'Bye!!\n:3';
     }else if(isContain(message, 'gracias')){
 	    finalMessage = 'De nada... :)';
     }else if(isContain(message, 'nombre')){
@@ -121,6 +148,8 @@ function evaluateMessage(recipientId, message){
 	}
 
 	sendMessageText(recipientId, finalMessage);
+		console.log(chalk.bgCyan.black(finalMessage));
+
 }
 // Agregar formato V de Gowin :3
 //Enviar al usuario texto
