@@ -6,10 +6,13 @@ body {
 }
 
 h1 {
-    font-family: 'ZCOOL QingKe HuangYou', cursive;
-
+    font-family: 'Francois One', sans-serif;
 }
 
 .nav-yinsbot {
-    font-family: 'Sniglet', cursive;
+	font-family: 'Raleway', sans-serif;
+}
+
+.coti {
+	font-family: 'Francois One', sans-serif;
 }

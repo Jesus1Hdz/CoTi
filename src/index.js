@@ -114,9 +114,15 @@ function evaluateMessage(recipientId, message){
 			finalMessage = 'Hasta pronto... :)\nCuidate';
 	}else if(isContain(message, 'adios')){
 					finalMessage = 'Bye!!\n:3';
+    }
+    // GRACIAS
+    else if (isContain(message, 'Gracias')) {
+    	finalMessage = 'Por nada UwU';
     }else if(isContain(message, 'gracias')){
 	    finalMessage = 'De nada... :)';
-    }else if(isContain(message, 'nombre')){
+    }
+    // PREGUNTAS - NOMBRE
+    else if(isContain(message, 'nombre')){
         finalMessage = 'Mi nombre es CoTi, ¿y el tuyo?';
     }else  if(isContain(message, 'hicieron')){
         finalMessage = 'Me desarrollaron los chicos de TICS, ¿Te gustaria unirte a TICS?';
