@@ -7,7 +7,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 
-const APP_TOKEN = 'EAAH8FvLlHLoBAFeTACIbDeMkQDZAI9IJujejeLoKj6kpLmdKVUZBTdwZCZBrOO8mqZCKQBzDQYZCrZCICJmb4XCUr8JLLafuhwkn2cuWNwpblzIQuIgWwjPdYgOcU0HZCNV1DOSXK5VcZCpI6VPvBQZAUPvZBp5jlqZC5NSZABWzLlrbb3wZDZD';
+const APP_TOKEN = 'EAAEfMAdbPlABAArZBVnMBS2m52ROiJP1ZCs0pKnO5ab80vZCR5Mz8ggrkowN3MYv5lcDqzbxmFM8092HRaoOaCA0wyHZBE0ZAadxaMV3ptXz2RKQI4tLMnu84bxzU2UKTEX9PcVAnxEUg1D1FroO1lxDGKuGMhcnAZALCI4AB2mVpBeyCy9TFu';
 
 //Usar bodyParser.json
 app.use(bodyParser.json());
@@ -32,7 +32,7 @@ app.listen(app.get('port'), () => {
 //Conexion con FB, validacion token
 app.get('/webhook', function(req, res){
 	
-	if (req.query['hub.verify_token'] === 'token_secret_jesus') {
+	if (req.query['hub.verify_token'] === 'token_chatbot_coti') {
 		res.send(req.query['hub.challenge']);
 	} else {
 		res.send('Tu no debes de entrat aquí');
@@ -87,14 +87,17 @@ function evaluateMessage(recipientId, message){
 	} else if (isContain(message, 'Help')) {
 		finalMessage = 'Dime, en que puedo ayudarte?\nOye...\nYo aún no hablo inglés, :(\nTe agradecería mucho si solo me escribes en español :)';
 	} else if(isContain(message, 'help')){
-		finalMessage = '¿En que te ayudo?';
+		finalMessage = '¿En que te ayudo?'
 	}
 	//LOGO
 	else if(isContain(message, 'logo')){
 		sendMessageImage(recipientId);
-	//}else if(isContain(message, 'si')){
-	   // finalMessage = '¿En que puedo ayudarte?';
-    }
+		//Para agregar más opciones de respuesta incluir más "else if"...
+		//O cambiar por un SWITCH
+	}
+	else if (isContain(message, 'info')){
+		sendMessageTemplate(recipientId);
+	}
 	// SALUDOS - HOLA
 	else if(isContain(message, 'Hola')){
 		finalMessage = 'Holaaaaa!!!' + '\n¿Puedo ayudarte en algo :3?';
@@ -108,43 +111,62 @@ function evaluateMessage(recipientId, message){
 		finalMessage = 'Holis ^-^';
 	}
 	// SALUDOS - DESPEDIDA
-		else if(isContain(message, 'ADIOS')){
-			finalMessage = 'Adios! ^-^\nCuidate...';
+	else if(isContain(message, 'ADIOS')){
+		finalMessage = 'Adios! ^-^\nCuidate...';
 	}else if(isContain(message, 'Adios')){
-			finalMessage = 'Hasta pronto... :)\nCuidate';
+		finalMessage = 'Hasta pronto... :)\nCuidate';
 	}else if(isContain(message, 'adios')){
-					finalMessage = 'Bye!!\n:3';
-    }
-    // GRACIAS
-    else if (isContain(message, 'Gracias')) {
-    	finalMessage = 'Por nada UwU';
-    }else if(isContain(message, 'gracias')){
-	    finalMessage = 'De nada... :)';
-    }
-    // PREGUNTAS - NOMBRE
-    else if(isContain(message, 'nombre')){
-        finalMessage = 'Mi nombre es CoTi, ¿y el tuyo?';
-    }else  if(isContain(message, 'hicieron')){
-        finalMessage = 'Me desarrollaron los chicos de TICS, ¿Te gustaria unirte a TICS?';
-    }else if(isContain(message, 'eres')){
-        finalMessage = 'Soy un ChatBot automatizado para responderte por messenger, aún estoy en fase "beta"';
-    }else if(isContain(message, 'futuro')){
-		finalMessage = 'Un buen profesionista';
-	}else if(isContain(message, 'carretera')){
-		finalMessage = 'Ya casi... :)';
-	}else if(isContain(message, 'campamento')){
-		finalMessage = 'Yessssss!!! :)';
+		finalMessage = 'Bye!!\n:3'
 	}
-	else if(isContain(message, 'regresar')){
-		finalMessage = 'No, estás muy narizon';
+	// HACER
+	else if(isContain(message, 'puedes hacer')){
+		finalMessage = 'Puedo hacer muchas cosas wuuu';
 	}
-	else if(isContain(message, 'chikitiar')){
-		finalMessage = 'chikiteame la gorra';
-	}else if(isContain(message, 'memes')) {
-		finalMessage = 'Mmmmcy 7u7';
+	// ERES
+	else if (isContain(message, 'Que eres')) {
+		finalMessage = 'Soy ChatBot ^-^\nSoy un CHatBot\n:3';
 	}
-	else if(isContain(message, 'ama')){
-		finalMessage = 'Siii!!! ell@ te ama <3';
+	else if(isContain(message, 'que eres')){
+		finalMessage = 'Soy un ChatBot automatizado para responderte';
+	}else if (isContain(message, 'crush me ama')) {
+		finalMessage = 'Nel, no te ama </3';
+	}
+	// NOMBRE
+	else if(isContain(message, 'tienes nombre')){
+		finalMessage = 'Yess!';
+	}else if(isContain(message, 'tienen nombre')){
+		finalMessage = 'ASi es :)';
+	}else if(isContain(message, 'Cual es tu nombre')){
+		finalMessage = 'Mi nombre es CoTi\nlindo vdd';
+	}else if(isContain(message, 'Cual es tu nombre')){
+		finalMessage = 'Mi nombre es CoTi\n^-^';
+	} else if(isContain(message, 'Como te llamas')){
+		finalMessage = 'Me llamo CoTi :3';
+	}else if(isContain(message, 'como te llamas')){
+		finalMessage = 'Me llamo CoTi';
+	}
+	// SI
+	else if(isContain(message, 'Si')){
+		finalMessage = 'Sipi :3';
+	}else if (isContain(message, 'si')) {
+		finalMessage = 'Siii';
+	}
+	//FAST
+	else if(isContain(message, 'respondes muy rapido')){
+		finalMessage = 'Respondo very fast, por que soy un ChatBot';
+	}else if(isContain(message, 'Eso fue lento')){
+		finalMessage = 'Pero más rapido que tu crush jaja\n</ 3';
+	}
+	// CHATBOT
+	else if(isContain(message, 'Que es un ChatBot')){
+		finalMessage = 'Los ChatsBots somos programas desarrollados para responder a todos los mensajes que nos envian.\n\nYo soy un ChatBot de messenger creado por los chicos de TICS del COBAO 31 :(';
+	}else if(isContain(message, 'Oye')){
+		finalMessage = 'Hey...';
+	}
+	else if(isContain(message, 'hacer mi tarea')){
+		finalMessage = 'Hagalo usted mismo\n :)';
+	}else if(isContain(message, 'Ay')){
+		finalMessage = ':"3';
 	}
 	else if(isContain(message, 'beta')){
         finalMessage = 'Es cuando una aplicación aún está en desarrollo, en esta fase aún pude haber errores, es la fase de prueba...';
