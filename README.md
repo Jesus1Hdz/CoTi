@@ -1,10 +1,20 @@
-# CoTi a partir de BotMessengerTemplate
+# CoTi a partir de [BotMessengerTemplate](https://github.com/Jesus1Hdz/BotMessengerTemplate)
 ### Nodejs en el backend y bootstrap en el frontend
 ___
-Diseñado originalmente para un entorno Linux
-___
+- Requerimientos
+"Nodejs, npm, ngrok"
+- Instalando herramientas de trabajo
+```
+    sudo apt-get install npm
+    
+    sudo apt-get install node
+```
+
+Ngrok, puede ser descargado desde su paǵina oficial.
+[Descargar](https://ngrok.com/download)
+
 - Modulos de Node requeridos
-Express, ejs, nodemon, morgan
+Express, ejs, nodemon, morgan, chalk
 ___
 - Instalando node_modules requeridos
 ```
@@ -15,6 +25,8 @@ ___
     npm i nodemon -D
 
     npm i morgan
+    
+    npm i chalk
 
 ```
 ___
